@@ -6,7 +6,7 @@
     <title>Super Duper Awesome Weather App</title>
 
     <!--Stylesheet-->
-    <link rel="stylesheet" src="stylesheet.css">
+    <link rel="stylesheet" href="stylesheet.css">
 
     <!--Google Fonts-->
     <link href="https://fonts.googleapis.com/css2?family=Alata&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" 
@@ -19,34 +19,56 @@
 </head>
 <body>
     <header>
-        <h1>What city would you like the weather for today.</h1>
+        <h1>WEATHER APP</h1>
     </header>    
 
     <!--Input to grab data from user-->
-    <div class="city">
+    <div class="input">
         <form method="GET" class="get_weather">
+            <div>
+                <p>This app can get you weather information for any city in the US.</p>
+                <p></p>
+            </div>
             <fieldset>
-                <legend>Enter City of Zip Code.</legend>
-                <legend>Dont forget the country code!</legend>
-
-                <label>City:
-                    <input type="text" id="input_city_value" name="city">
-                </label>
-
-                <label>Zip Code:
-                    <input type="number" id="input_zip_value" name="zip_code">
-                </label>
-
-                <label>Country Code:
-                    <input type="text" id="input_country_code_value" name="country_code" placeholder="Simply enter 'US' if you are in the United States of America">
-                </label>
+                <p>Enter the city or zip code below</p>
                 
-                <button id="get_weather_button" type="submit">GET WEATHER</button>
+                
+                <label>
+                    <input type="text" class="input_city_value" name="city" placeholder="Enter city">
+                </label>
+
+                <label>
+                    <input type="number" class="input_zip_value" name="zip_code" placeholder="Enter zip code">
+                </label>
+
+                <!-- <label>
+                    <input type="text" id="input_country_code_value" name="country_code"  value="US">
+                </label> -->
+                
+                <button id="get-weather-button" type="submit">GET WEATHER</button>
             </fieldset>
             
         </form>
     </div>
 
+
+
+    <div class="results">RESULTS
+        <h1 class="city-name"></h1>
+
+        <div class="current-weather">
+            <p class="desc"></p>
+            <p class="temp"></p>
+            <p class="feels-like"></p>
+            <p class="temp-low"></p>
+            <p class="temp-high"></p>
+            <p class="humidity"></p>
+            <p class="windspeed"></p>
+            <p class="cloudiness"></p>
+        </div>
+
+
+    </div>
 
     <script src="script.js"></script>
 </body>

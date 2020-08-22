@@ -24,8 +24,9 @@ button.addEventListener('click', function(event){
     const apiKeyPrefix = '&appid='
     const apiKey = '098d9c9da2cbf6afe932af1dace2cf62'
     const country = ',us'
+    const units = '&units=imperial' // make units imperial
 
-    payload = endpoint + inputCityValue.value + country + apiKeyPrefix + apiKey
+    payload = endpoint + inputCityValue.value + country + units + apiKeyPrefix + apiKey
     fetch(payload)
         .then(response => response.json())
 
@@ -46,6 +47,12 @@ button.addEventListener('click', function(event){
             temperature.innerHTML = tempValue
             cityName.innerHtml = nameValue
             description.textContent = descValue
+            feelsLike.innerHTML = 'Feels like: ' + feelsLikeValue + '&#8457'
+            tempLow.innerHTML = tempLowValue
+            tempHigh.innerHTML = tempHighValue
+            humidity.innerHtml = humidityValue
+            windSpeed.innerHTML = windSpeedValue
+            cloudiness.innerHTML = cloudinessValue + '%'
         })
 
     .catch(err => alert("Wrong city name"))

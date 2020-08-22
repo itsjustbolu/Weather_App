@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Duper Awesome Weather App</title>
+
+    <!--Stylesheet-->
+    <link rel="stylesheet" src="stylesheet.css">
+
+    <!--Google Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Alata&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" 
+    rel="stylesheet">
+
+
+
+
+
+</head>
+<body>
+    <header>
+        <h1>What city would you like the weather for today.</h1>
+    </header>    
+
+    <!--Input to grab data from user-->
+    <div class="city">
+        <form method="GET" class="get_weather">
+            <fieldset>
+                <legend>Enter City of Zip Code.</legend>
+                <legend>Dont forget the country code!</legend>
+
+                <label>City:
+                    <input type="text" id="input_city_value" name="city">
+                </label>
+
+                <label>Zip Code:
+                    <input type="number" id="input_zip_value" name="zip_code">
+                </label>
+
+                <label>Country Code:
+                    <input type="text" id="input_country_code_value" name="country_code" placeholder="Simply enter 'US' if you are in the United States of America">
+                </label>
+                
+                <button id="get_weather_button" type="submit">GET WEATHER</button>
+            </fieldset>
+            
+        </form>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>

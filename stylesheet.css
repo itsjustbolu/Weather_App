@@ -19,6 +19,7 @@ h1 {
     font-size: 5rem;
     background: -webkit-linear-gradient(rgb(89, 130, 192), rgb(204, 102, 102));
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     text-align: center;
 }
@@ -61,4 +62,9 @@ button {
 
 p {
     text-align: center;
+}
+
+
+.desc {
+    text-transform: capitalize;
 }

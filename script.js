@@ -1,63 +1,48 @@
-// Selectors
-
-var button = document.getElementById('get-weather-button')
-var inputCityValue = document.querySelector('.input_city_value')
-var inputZipValue = document.querySelector('.input_zip_value')
-
-var cityName = document.querySelector('.city-name')
-var description = document.querySelector('.desc')
-var temperature = document.querySelector('.temp')
-var feelsLike = document.querySelector('.feels-like')
-var tempLow = document.querySelector('.temp-low')
-var tempHigh = document.querySelector('.temp-high')
-var humidity = document.querySelector('.humidity')
-var windSpeed = document.querySelector('.windSpeed')
-var cloudiness = document.querySelector('.cloudiness')
+document.addEventListener('DOMContentLoaded', bindButtons)
 
 
-// Event Listeners
+function bindButtons(){
+    document.getElementById("get-weather-button").addEventListener('click', function(event)
+    {
+        var req = new XMLHttpRequest()
+        var endpoint = "https://api.openweathermap.org/data/2.5/weather?"
+        var apiKeyPrefix = "&appid="
+        var apiKey = "098d9c9da2cbf6afe932af1dace2cf62"
+        var city = document.getElementById("input_city_value").value
+        var zipcode = document.getElementById("input_zip_value").value
+        var country = ',us'
+        var units = '&units=imperial' // make units imperial
+        var payload 
 
-button.addEventListener('click', function(event){
-    event.preventDefault()
-    // Make get request using fetch. Ditch old HttpRequest method
-    const endpoint = 'https://api.openweathermap.org/data/2.5/weather?q='
-    const apiKeyPrefix = '&appid='
-    const apiKey = '098d9c9da2cbf6afe932af1dace2cf62'
-    const country = ',us'
-    const units = '&units=imperial' // make units imperial
+        if (zipcode){
+            payload = endpoint + "zip=" + zipcode + country + units + apiKeyPrefix + apiKey
+        }
+        else {
+            payload = endpoint + "q=" + city + country + units + apiKeyPrefix + apiKey
+        }
 
-    payload = endpoint + inputCityValue.value + country + units + apiKeyPrefix + apiKey
-    fetch(payload)
-        .then(response => response.json())
-
-        // here we grab all the data returned by the api call and save into variables
-        .then(data => {
-            var nameValue = data['name']
-            var tempValue = data['main']['temp']
-            var descValue = data['weather'][0]['description']
-            var feelsLikeValue = data['main']['feels_like']
-            var tempLowValue = data['main']['temp_min']
-            var tempHighValue = data['main']['temp_max']
-            var humidityValue = data['main']['humidity']
-            var windSpeedValue = data['wind']['speed']
-            var cloudinessValue = data['clouds']['all']
-
-
-            // push data to html 
-            temperature.innerHTML = tempValue
-            cityName.innerHtml = nameValue
-            description.textContent = descValue
-            feelsLike.innerHTML = 'Feels like: ' + feelsLikeValue + '&#8457'
-            tempLow.innerHTML = tempLowValue
-            tempHigh.innerHTML = tempHighValue
-            humidity.innerHtml = humidityValue
-            windSpeed.innerHTML = windSpeedValue
-            cloudiness.innerHTML = cloudinessValue + '%'
+        req.open("GET", payload, true)
+        req.setRequestHeader("Content-Type", 'application/x-www-form-urlencoded')
+        req.addEventListener("load", function(){
+            if (req.status >= 200 && req.status < 400){
+                var response = JSON.parse(req.responseText)
+                console.log(response)           // write response to console to verify call is working
+                document.getElementById('city-name').textContent = "Today in " + response.name
+                document.getElementById('temp').textContent = "The temperature is " + Math.floor(response.main.temp) + ' degrees'
+                document.getElementById('desc').textContent = response.weather[0].description
+                document.getElementById('feels-like').textContent = "and feels like " + Math.floor(response.main.feels_like) + ' degrees'
+                document.getElementById('temp-low').textContent = "Today's low will be " + Math.floor(response.main.temp_min) + ' degrees'
+                document.getElementById('temp-high').textContent = "Today's high will be " + Math.floor(response.main.temp_max) + ' degrees'
+                document.getElementById('humidity').textContent = "Humidity stands at " + response.main.humidity + '%'
+                document.getElementById('windspeed').textContent = "Windspeeds of " + response.wind.speed + 'mph'
+                document.getElementById('cloudiness').textContent = response.clouds.all + "%" + " cloudy"
+            }
+            else {
+                console.log('Error ' + req.statusText)
+            }
         })
+        req.send(JSON.stringify(payload))
+        event.preventDefault()
+    })
 
-    .catch(err => alert("Wrong city name"))
-    event.preventDefault()
-})
-
-
-
+}
